@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Jiselle Ann Menodiado</title>
+  <meta name="description" content="Login page for Jiselle Ann Menodiado's portfolio" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: radial-gradient(circle at 12% 12%, rgba(244, 197, 66, 0.12), transparent 18%),
+                  radial-gradient(circle at 92% 78%, rgba(255, 255, 255, 0.08), transparent 20%),
+                  linear-gradient(135deg, #071022 0%, #14213d 40%, #0e1a35 100%);
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .login-header .brand-badge {
+      margin: 0 auto 20px;
+    }
+
+    .login-header h1 {
+      color: var(--white);
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    .login-header p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+    }
+
+    .login-form-wrapper {
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(20, 33, 61, 0.12);
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid rgba(20, 33, 61, 0.15);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--maroon);
+      box-shadow: 0 0 0 3px rgba(127, 0, 0, 0.1);
+    }
+
+    .form-group input::placeholder {
+      color: var(--muted);
+    }
+
+    .helper-text {
+      font-size: 0.8rem;
+      color: rgba(20, 33, 61, 0.65);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .password-requirements {
+      background: rgba(244, 197, 66, 0.08);
+      border-left: 3px solid var(--yellow);
+      padding: 12px 14px;
+      border-radius: 6px;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+
+    .requirement-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 4px 0;
+    }
+
+    .requirement-item.met {
+      color: #10b981;
+    }
+
+    .requirement-item.unmet {
+      color: var(--text);
+    }
+
+    .requirement-icon {
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn-login {
+      flex: 1;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      font-size: 1rem;
+    }
+
+    .btn-login.primary {
+      background: var(--maroon);
+      color: var(--white);
+      box-shadow: 0 10px 24px rgba(127, 0, 0, 0.2);
+    }
+
+    .btn-login.primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: var(--maroon-dark);
+    }
+
+    .btn-login.secondary {
+      background: rgba(20, 33, 61, 0.1);
+      color: var(--navy);
+      border: 2px solid rgba(20, 33, 61, 0.2);
+    }
+
+    .btn-login.secondary:hover {
+      background: rgba(20, 33, 61, 0.15);
+    }
+
+    .btn-login:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-message {
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 8px;
+      display: none;
+      font-size: 0.95rem;
+      animation: slideInUp 0.5s ease;
+    }
+
+    .form-message.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      border-left: 4px solid #10b981;
+    }
+
+    .form-message.error {
+      display: block;
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border-left: 4px solid #ef4444;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      color: var(--maroon);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .back-link a:hover {
+      color: var(--maroon-dark);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .login-form-wrapper {
+        padding: 28px 20px;
+      }
+
+      .login-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-wrapper">
+      <div class="login-header">
+        <div class="brand-badge">JAM</div>
+        <h1>Welcome</h1>
+        <p>Login to explore my portfolio</p>
+      </div>
+
+      <div class="login-form-wrapper">
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+            <div class="helper-text">Must be a valid email format (e.g., user@example.com)</div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+            <div class="helper-text">Create a secure password that meets the requirements below.</div>
+            <div class="password-requirements">
+              <div class="requirement-item unmet" id="reqLength">
+                <span class="requirement-icon">○</span> At least 8 characters
+              </div>
+              <div class="requirement-item unmet" id="reqUppercase">
+                <span class="requirement-icon">○</span> One uppercase letter
+              </div>
+              <div class="requirement-item unmet" id="reqLowercase">
+                <span class="requirement-icon">○</span> One lowercase letter
+              </div>
+              <div class="requirement-item unmet" id="reqNumber">
+                <span class="requirement-icon">○</span> One number
+              </div>
+              <div class="requirement-item unmet" id="reqSpecial">
+                <span class="requirement-icon">○</span> One special character (@$!%*?&)
+              </div>
+            </div>
+          </div>
+
+          <div class="form-message" id="formMessage"></div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-login primary" id="loginBtn">
+              Login
+            </button>
+            <button type="reset" class="btn-login secondary">
+              Clear
+            </button>
+          </div>
+        </form>
+
+        <div class="back-link">
+          <a href="WEBPORTFLIO_FINAL - Copy.html">← Back to Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="regex.js"></script>
+  <script>
+    const form = document.getElementById("loginForm");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const formMessage = document.getElementById("formMessage");
+    const loginBtn = document.getElementById("loginBtn");
+
+    // Password requirement indicators
+    const requirements = {
+      length: document.getElementById("reqLength"),
+      uppercase: document.getElementById("reqUppercase"),
+      lowercase: document.getElementById("reqLowercase"),
+      number: document.getElementById("reqNumber"),
+      special: document.getElementById("reqSpecial"),
+    };
+
+    // Update password requirements display in real-time
+    passwordInput.addEventListener("input", function () {
+      const password = this.value;
+      const validation = validatePassword(password);
+
+      // Update requirement indicators
+      updateRequirementUI(
+        requirements.length,
+        validation.requirements.length
+      );
+      updateRequirementUI(
+        requirements.uppercase,
+        validation.requirements.uppercase
+      );
+      updateRequirementUI(
+        requirements.lowercase,
+        validation.requirements.lowercase
+      );
+      updateRequirementUI(requirements.number, validation.requirements.number);
+      updateRequirementUI(
+        requirements.special,
+        validation.requirements.specialChar
+      );
+
+      // Update submit button state
+      loginBtn.disabled = !(
+        validateEmail(emailInput.value) && validation.isValid
+      );
+    });
+
+    // Update button state on email input
+    emailInput.addEventListener("input", function () {
+      const isEmailValid = validateEmail(this.value);
+      const passwordValidation = validatePassword(passwordInput.value);
+      loginBtn.disabled = !(isEmailValid && passwordValidation.isValid);
+    });
+
+    function updateRequirementUI(element, isMet) {
+      if (isMet) {
+        element.classList.remove("unmet");
+        element.classList.add("met");
+        element.querySelector(".requirement-icon").textContent = "✓";
+      } else {
+        element.classList.remove("met");
+        element.classList.add("unmet");
+        element.querySelector(".requirement-icon").textContent = "○";
+      }
+    }
+
+    // Form submission
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      // Validate email
+      if (!validateEmail(email)) {
+        showMessage("Please enter a valid email address.", "error");
+        return;
+      }
+
+      // Validate password
+      const passwordValidation = validatePassword(password);
+      if (!passwordValidation.isValid) {
+        const errorMsg = getPasswordError(passwordValidation.requirements);
+        showMessage(errorMsg, "error");
+        return;
+      }
+
+      // Sanitize and display success (in real scenario, you'd send to backend)
+      const sanitizedEmail = sanitizeInput(email);
+      showMessage(
+        `✓ Login successful! Welcome ${sanitizedEmail.split("@")[0]}.`,
+        "success"
+      );
+
+      // Reset form after 2 seconds
+      setTimeout(() => {
+        form.reset();
+        formMessage.classList.remove("success", "error");
+        formMessage.style.display = "none";
+        loginBtn.disabled = true;
+        
+        // Reset requirement indicators
+        Object.values(requirements).forEach((req) => {
+          req.classList.remove("met");
+          req.classList.add("unmet");
+          req.querySelector(".requirement-icon").textContent = "○";
+        });
+      }, 2000);
+    });
+
+    function showMessage(message, type) {
+      formMessage.textContent = message;
+      formMessage.classList.remove("success", "error");
+      formMessage.classList.add(type);
+      formMessage.style.display = "block";
+    }
+
+    // Initial button state
+    loginBtn.disabled = true;
+  </script>
+</body>
+</html>
